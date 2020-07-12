@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+
+	<style>
+
+#div1 {
+    position: absolute;left:0px;top:0px;
+    height: 500px;
+   width: 250px;
+    margin: 0 auto;
+    padding: 15px;
+    background: aquamarine;
+    border: 2px solid navy;
+}
+#div2 {
+    position: absolute;left:283px;top:0px;
+    height: 250px;
+    width: 300px;
+    margin: 0 auto;
+    padding: 15px;
+    background-image: url(https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.offthegridnews.com%2Fwp-content%2Fuploads%2F2011%2F02%2FLending.jpg&f=1);
+      background-repeat: no-repeat;
+      background-position: left top;
+    border: 2px solid navy;
+}
+#div3 {
+    position: absolute;left:615px;top:0px;
+    height: 250px;
+   width: 300px;
+    margin: 0 auto;
+    padding: 15px;
+    background: gold;
+    border: 2px solid navy;
+}
+#div4 {
+    position: absolute;left:283px;top:250px;
+    height: 250px;
+   width: 632px;
+    margin: 0 auto;
+    padding: 15px;
+    background: lightpink;
+    border: 2px solid navy;
+}
+
+div.center {text-align:center;}
+
+
+</style>
+
+
+</head>
+    <body>
+
+    	<div id="div1" class="center" style="color:#3399FF;">This is div 1
+    	<br>
+    	<h4>My Favorite Links:</h4>
+    	<a style="font-size:12px" href= 'http://online.sfsu.edu/dchao/ISYS350A8F16.htm' class='link'>
+    	http://online.sfsu.edu/dchao/ISYS350A8F16.htm</a><br>
+    	<a style="font-size:12px" href= 'https://www.w3schools.com/html/' class='link'>
+    	https://www.w3schools.com/html/</a><br>
+    	<a style="font-size:12px" href= 'https://www.w3schools.com/css/css3_backgrounds.asp' class='link'>
+    	https://www.w3schools.com/css/css3_backgrounds.asp</a><br>
+
+		</div>
+
+
+
+        <div id="div2"class="center" style="color:#3399FF;">This is div 2</div>
+        <div id="div3" class="center" style="color:#3399FF;">This is div 3<br>
+        <form name="fvForm" action="">
+            Enter PV: <input id='PV' type="text"  name="PV" value="" /><br>
+            Select Rate: <select name="Rate">
+                <option value=0.04>4%</option>
+                <option value=0.045>4.5%</option>
+                <option value=0.05>5%</option>
+                <option value=0.055>5.5%</option>
+                <option value=0.06>6%</option>
+                <option value=0.065>6.5%</option>
+                <option value=0.07>7%</option>
+            </select><br>
+            Select Year: <br>
+            <input type="radio" name="Year" value=10 />10 year<br>
+            <input type="radio" name="Year" value=15 />15 year<br>
+            <input type="radio" name="Year" value=30 />30 year<br>
+            <br>
+            Future Value: <input type="text" name="FV"  />
+            <br>
+            <input type="button" value="ComputeFV" name="btnCompute" onClick="ComputeFV()" />
+</form>
+
+<script>
+function ComputeFV(){
+//myPV=eval(document.fvForm.PV.value);
+myPV=parseFloat(document.fvForm.PV.value);
+//myRate=eval(document.fvForm.Rate.options[document.fvForm.Rate.selectedIndex].value);
+myRate=parseFloat(document.fvForm.Rate.options[document.fvForm.Rate.selectedIndex].value);
+if (document.fvForm.Year[0].checked)
+    {myYear=10;}
+else if (document.fvForm.Year[1].checked)
+    {myYear=15;}
+else
+    {myYear=30;}
+fv=myPV*Math.pow(1+myRate,myYear);
+document.fvForm.FV.value=fv.toString();
+//document.fvForm.FV.value="$" + fv.toFixed(2);
+}
+</script>
+
+
+
+        </div>
+   		<div id="div4"  class="center" style="color:#3399FF;">This is div 4<br>
+
+   		<table id="depTable" border="1" width="400">
+          Straight Line Depreciation Table
+        <form name="depForm">
+            Enter Property Value: <input type="text" name="pValue" value="" /><br>
+            Enter Property Life: <input type="text" name="pLife" value="" /><br>
+
+            <input type="button" value="Show Table" name="btnShowTable" onclick="showTable()" />
+
+            <script >
+function Validating(){
+var Valid;
+Valid=true;
+if (document.depForm.pValue.value=="" ||document.depForm.pLife.value=="")
+    {Valid=false;}
+
+if (Valid==false)
+    {alert("Property value or life cannot contain blank");}
+else
+    {showTable();}
+}
+
+function showTable(){
+value=eval(document.depForm.pValue.value);
+life=eval(document.depForm.pLife.value);
+depreciation = value / life;
+var table = document.getElementById('depTable');
+var totalDepreciation=0;
+
+for(var i = table.rows.length - 1; i > 0; i--)
+{
+    table.deleteRow(i);
+}
+for (count = 1; count <= life; count++)
+ {
+    var rowCount = table.rows.length;
+    var row = table.insertRow(rowCount);
+    var cell0 = row.insertCell(0);
+    cell0.innerHTML=count;
+    var cell1 = row.insertCell(1);
+    cell1.innerHTML="$" + value.toFixed(2);
+    var cell2 = row.insertCell(2);
+    cell2.innerHTML="$" + depreciation.toFixed(2);
+    totalDepreciation += depreciation;
+    var cell3 = row.insertCell(3);
+    cell3.innerHTML="$" + totalDepreciation.toFixed(2);
+    value -= depreciation;
+}
+}
+
+
+</script>
+
+
+
+        </form>
+            <thead>
+                <tr>
+                    <th>Year</th>
+                    <th>Value at BeginYr</th>
+                    <th>Dep During Yr</th>
+                    <th>Total to EndOfYr</th>
+                    <table id="depTable" border="1" width="400" cellspacing="1">
+                </tr>
+            </thead>
+
+  <tbody>
+	<tr>
+
+  	</tr>
+   </tbody>
+</table>
+
+
+   		</div>
+
+    </body>
+</html>
